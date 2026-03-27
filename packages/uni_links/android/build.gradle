@@ -1,0 +1,37 @@
+group 'name.avioli.unilinks'
+version '0.4.0'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral() // ✅ replace jcenter
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2' // ✅ modern
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral() // ✅ replace jcenter
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    namespace "name.avioli.unilinks" // ✅ REQUIRED for new Gradle
+
+    compileSdkVersion 35 // ✅ or 34 if your app uses 34
+
+    defaultConfig {
+        minSdkVersion 21 // ✅ REQUIRED by Flutter now
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}

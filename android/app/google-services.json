@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "748191188018",
+    "firebase_url": "https://ssc-soccersport-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ssc-soccersport",
+    "storage_bucket": "ssc-soccersport.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748191188018:android:10bda1baded8e2f06ee82b",
+        "android_client_info": {
+          "package_name": "com.SoccerSport.SSC"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748191188018-t94lu74c9us2h0acbg5rjvtqd44l4it7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnILVGWaUqHMssgpX_5T4Ly5etUgjhcNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748191188018-t94lu74c9us2h0acbg5rjvtqd44l4it7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "748191188018-dpl81efco7eavj49nhba9d5p4e1lojd8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.SoccerSport.SSC",
+                "app_store_id": "1569544522"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
