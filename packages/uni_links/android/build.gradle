@@ -4,30 +4,30 @@ version '0.4.0'
 buildscript {
     repositories {
         google()
-        mavenCentral() // ✅ replace jcenter
+        mavenCentral() 
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2' // ✅ modern
+        classpath 'com.android.tools.build:gradle:7.4.2' 
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        mavenCentral() // ✅ replace jcenter
+        mavenCentral() 
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    namespace "name.avioli.unilinks" // ✅ REQUIRED for new Gradle
+    namespace "name.avioli.unilinks" /
 
-    compileSdkVersion 35 // ✅ or 34 if your app uses 34
+    compileSdkVersion 35 
 
     defaultConfig {
-        minSdkVersion 21 // ✅ REQUIRED by Flutter now
+        minSdkVersion 21 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
