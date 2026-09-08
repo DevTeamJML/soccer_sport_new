@@ -18,8 +18,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:new_version_plus/model/version_status.dart';
-import 'package:new_version_plus/new_version_plus.dart';
+// import 'package:new_version_plus/model/version_status.dart';
+// import 'package:new_version_plus/new_version_plus.dart';
 // import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -109,10 +109,10 @@ class _HomePageState extends State<HomePage> {
   final InAppReview _inAppReview = InAppReview.instance;
   // late DatabaseReference database;
 
-  final newVersion = NewVersionPlus(
-    iOSId: 'com.SoccerSport.SSC',
-    androidId: 'com.SoccerSport.SSC',
-  );
+  // final newVersion = NewVersionPlus(
+  //   iOSId: 'com.SoccerSport.SSC',
+  //   androidId: 'com.SoccerSport.SSC',
+  // );
   Availability _availability = Availability.loading;
   Future<void> _requestReview() => _inAppReview.requestReview();
   bool appReviewAvailable = false;
@@ -147,72 +147,72 @@ class _HomePageState extends State<HomePage> {
   //   });
   // }
 
-  Future<void> checkNewVersion() async {
-    final status = await newVersion.getVersionStatus();
+  // Future<void> checkNewVersion() async {
+  //   final status = await newVersion.getVersionStatus();
 
-    if (status != null && status.canUpdate) {
-      // newVersion.showAlertIfNecessary(context: context);
+  //   if (status != null && status.canUpdate) {
+  //     // newVersion.showAlertIfNecessary(context: context);
 
-      // newVersion.showUpdateDialog(
-      //   context: context,
-      //   versionStatus: status,
-      //   dialogTitle: 'Update required',
-      //   dialogText: status.releaseNotes,
-      //   updateButtonText: 'Update',
-      //   dismissButtonText: 'Maybe Later',
-      //   dismissAction: null,
-      // );
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-              onWillPop: () async {
-                return false;
-              },
-              child: updateDialog(status!));
-        },
-      );
-    }
+  //     // newVersion.showUpdateDialog(
+  //     //   context: context,
+  //     //   versionStatus: status,
+  //     //   dialogTitle: 'Update required',
+  //     //   dialogText: status.releaseNotes,
+  //     //   updateButtonText: 'Update',
+  //     //   dismissButtonText: 'Maybe Later',
+  //     //   dismissAction: null,
+  //     // );
+  //     showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext context) {
+  //         return WillPopScope(
+  //             onWillPop: () async {
+  //               return false;
+  //             },
+  //             child: updateDialog(status!));
+  //       },
+  //     );
+  //   }
 
-    // showDialog(
-    //   context: context,
-    //   barrierDismissible: false,
-    //   builder: (BuildContext context) {
-    //     return WillPopScope(
-    //         onWillPop: () async {
-    //           return false;
-    //         },
-    //         child: updateDialog(status!));
-    //   },
-    // );
+  //   // showDialog(
+  //   //   context: context,
+  //   //   barrierDismissible: false,
+  //   //   builder: (BuildContext context) {
+  //   //     return WillPopScope(
+  //   //         onWillPop: () async {
+  //   //           return false;
+  //   //         },
+  //   //         child: updateDialog(status!));
+  //   //   },
+  //   // );
 
-    // newVersion.showUpdateDialog(
-    //   context: context,
-    //   versionStatus: status!,
-    //   dialogTitle: 'Update required',
-    //   dialogText: status.releaseNotes,
-    //   updateButtonText: 'Update',
-    //   dismissButtonText: 'Maybe Later',
-    //   dismissAction: null,
-    //   launchModeVersion: LaunchModeVersion.external,
-    // );
+  //   // newVersion.showUpdateDialog(
+  //   //   context: context,
+  //   //   versionStatus: status!,
+  //   //   dialogTitle: 'Update required',
+  //   //   dialogText: status.releaseNotes,
+  //   //   updateButtonText: 'Update',
+  //   //   dismissButtonText: 'Maybe Later',
+  //   //   dismissAction: null,
+  //   //   launchModeVersion: LaunchModeVersion.external,
+  //   // );
 
-    // if (status != null) {
-    //   print(status.storeVersion);
-    //   print('status 1= null');
-    //   print(status.releaseNotes.toString());
-    //   newVersion.showUpdateDialog(
-    //     context: context,
-    //     versionStatus: status,
-    //     dialogTitle: status.storeVersion.toString(),
-    //     dialogText: status.releaseNotes.toString(),
-    //     updateButtonText: 'update',
-    //     dismissButtonText: 'maybe later',
-    //     dismissAction: () => {},
-    //   );
-    // }
-  }
+  //   // if (status != null) {
+  //   //   print(status.storeVersion);
+  //   //   print('status 1= null');
+  //   //   print(status.releaseNotes.toString());
+  //   //   newVersion.showUpdateDialog(
+  //   //     context: context,
+  //   //     versionStatus: status,
+  //   //     dialogTitle: status.storeVersion.toString(),
+  //   //     dialogText: status.releaseNotes.toString(),
+  //   //     updateButtonText: 'update',
+  //   //     dismissButtonText: 'maybe later',
+  //   //     dismissAction: () => {},
+  //   //   );
+  //   // }
+  // }
 
   @override
   void initState() {
@@ -225,7 +225,7 @@ class _HomePageState extends State<HomePage> {
     });
     _messageService.init(context);
 
-    checkNewVersion();
+    // checkNewVersion();
 
     // OneSignal.shared.setNotificationOpenedHandler((message) {
     //   if (message.notification.additionalData != null) {
@@ -1539,86 +1539,86 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  Widget updateDialog(VersionStatus status) {
-    return Dialog(
-        child: Container(
-      height: MediaQuery.of(context).size.height * 0.2,
-      width: MediaQuery.of(context).size.width * 0.8,
-      child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  child: Column(children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: FittedBox(
-                          fit: BoxFit.fitHeight,
-                          child: Text(
-                            'Update Required',
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    )
-                  ]),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.05,
-                    vertical: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  child: Center(
-                      child: Text(
-                    'Please update immediately to ensure optimal performance to have better experience.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                  )),
-                ),
-              ),
-              Divider(),
-              Expanded(
-                  child: GestureDetector(
-                onTap: () async {
-                  if (await canLaunchUrl(Uri.parse(status.appStoreLink))) {
-                    await launchUrl(Uri.parse(status.appStoreLink),
-                        mode: LaunchMode.externalApplication);
-                  } else {
-                    throw 'Could not launch appStoreLink';
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                  ),
-                  child: Center(
-                      child: Text(
-                    'Update',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                  )),
-                ),
-              )),
-            ],
-          )),
-    ));
-  }
+  // Widget updateDialog(VersionStatus status) {
+  //   return Dialog(
+  //       child: Container(
+  //     height: MediaQuery.of(context).size.height * 0.2,
+  //     width: MediaQuery.of(context).size.width * 0.8,
+  //     child: Container(
+  //         decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           borderRadius: BorderRadius.all(Radius.circular(25.0)),
+  //         ),
+  //         child: Column(
+  //           children: [
+  //             Expanded(
+  //               child: Container(
+  //                 child: Column(children: [
+  //                   Expanded(
+  //                     child: Padding(
+  //                       padding: const EdgeInsets.only(top: 10.0),
+  //                       child: FittedBox(
+  //                         fit: BoxFit.fitHeight,
+  //                         child: Text(
+  //                           'Update Required',
+  //                           style: TextStyle(
+  //                               fontSize: 17,
+  //                               fontWeight: FontWeight.bold,
+  //                               color: Colors.black),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   )
+  //                 ]),
+  //               ),
+  //             ),
+  //             Expanded(
+  //               flex: 2,
+  //               child: Container(
+  //                 padding: EdgeInsets.symmetric(
+  //                   horizontal: MediaQuery.of(context).size.width * 0.05,
+  //                   vertical: MediaQuery.of(context).size.height * 0.01,
+  //                 ),
+  //                 child: Center(
+  //                     child: Text(
+  //                   'Please update immediately to ensure optimal performance to have better experience.',
+  //                   style: TextStyle(
+  //                     fontSize: 14,
+  //                     color: Colors.black,
+  //                   ),
+  //                   textAlign: TextAlign.center,
+  //                 )),
+  //               ),
+  //             ),
+  //             Divider(),
+  //             Expanded(
+  //                 child: GestureDetector(
+  //               onTap: () async {
+  //                 if (await canLaunchUrl(Uri.parse(status.appStoreLink))) {
+  //                   await launchUrl(Uri.parse(status.appStoreLink),
+  //                       mode: LaunchMode.externalApplication);
+  //                 } else {
+  //                   throw 'Could not launch appStoreLink';
+  //                 }
+  //               },
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.all(Radius.circular(25.0)),
+  //                 ),
+  //                 child: Center(
+  //                     child: Text(
+  //                   'Update',
+  //                   style: TextStyle(
+  //                       color: Colors.blue,
+  //                       fontSize: 17,
+  //                       fontWeight: FontWeight.bold),
+  //                 )),
+  //               ),
+  //             )),
+  //           ],
+  //         )),
+  //   ));
+  // }
 }
 
 class CustomShape extends CustomPainter {

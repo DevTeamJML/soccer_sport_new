@@ -31,15 +31,32 @@ class _LeaguePageState extends State<LeaguePage>
     serviceLocator<AnalyticsService>().logScreens(name: '/statsPage');
 
     leagueList = List<LeagueDetails>.from(Constant.staticLeagues);
+    // final eplIndex =
+    //     leagueList.indexWhere((element) => element.league.id == 39);
     final eplIndex =
         leagueList.indexWhere((element) => element.league.id == 39);
+
+    if (eplIndex != -1) {
+      final epl = leagueList.removeAt(eplIndex);
+      leagueList.insert(0, epl);
+    }
     final wcIndex = leagueList.indexWhere((element) => element.league.id == 1);
+
+    if (wcIndex != -1) {
+      final wc = leagueList.removeAt(wcIndex);
+      leagueList.insert(wcIndex >= 4 ? 4 : leagueList.length, wc);
+    }
+    // final wcIndex = leagueList.indexWhere((element) => element.league.id == 1);
     final epl = leagueList[eplIndex];
     final wc = leagueList[wcIndex];
     leagueList.remove(epl);
     leagueList.remove(wc);
     leagueList.insert(0, epl);
-    leagueList.insert(4, wc);
+    // leagueList.insert(4, wc);
+    leagueList.insert(
+      leagueList.length >= 4 ? 4 : leagueList.length,
+      wc,
+    );
     if (Constant.auth != null) {
       List<LeagueDetails> cloneList = leagueList
           .where((element) => Constant.customerRewardDetail!.leagues

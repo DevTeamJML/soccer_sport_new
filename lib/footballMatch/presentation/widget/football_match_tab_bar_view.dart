@@ -108,6 +108,7 @@ class _FootballMatchTabBarViewState extends State<FootballMatchTabBarView>
           BlocListener<FootballMatchBloc, FootballMatchState>(
             listener: (context, state) {
               if (state is FootballMatchesLoaded) {
+                
                 setState(() {
                   var groups = groupBy(
                       state.footballMatches,
@@ -604,7 +605,7 @@ class _FootballMatchTabBarViewState extends State<FootballMatchTabBarView>
                                     DateFormat("yyyy-MM-dd").format(element) ==
                                     DateFormat("yyyy-MM-dd")
                                         .format(selectedDate)));
-                              
+
                                 selectedTab = picker != -1 ? picker + 1 : -1;
                                 var selectedDateMatch =
                                     matchesByDate.firstWhereOrNull(
@@ -670,7 +671,6 @@ class _FootballMatchTabBarViewState extends State<FootballMatchTabBarView>
                                         data.snapshot.value as LinkedHashMap);
                                     // print(jsonvalue);
                                     if (jsonvalue.isNotEmpty) {
-
                                       List<FootballMatch> list = jsonvalue
                                           .entries
                                           .map((entry) =>
@@ -830,7 +830,7 @@ class _FootballMatchTabBarViewState extends State<FootballMatchTabBarView>
                                                               child: Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                            .all(
+                                                                        .all(
                                                                         5.0),
                                                                 child: Column(
                                                                     children: [
@@ -971,10 +971,11 @@ class _FootballMatchTabBarViewState extends State<FootballMatchTabBarView>
                         } else {
                           if (footballMatches != null &&
                               footballMatches!.length > 0) {
-                            return FootballMatchListTest(
-                              league: widget.league,
-                              footballMatches: footballMatches!,
-                            );
+                            return const SizedBox();
+                            // return FootballMatchListTest(
+                            //   league: widget.league,
+                            //   footballMatches: footballMatches!,
+                            // );
                           } else {
                             return Container(
                                 child: Center(

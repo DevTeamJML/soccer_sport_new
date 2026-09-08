@@ -77,6 +77,12 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
           .map((dynamic item) => FootballMatchModel.fromJson(item))
           .toList();
 
+      const allowedLeagues = [39, 135, 78, 140, 1];
+
+      matches = matches.where((m) {
+        return allowedLeagues.contains(m.league?.id);
+      }).toList();
+
       return matches;
     } else {
       throw ServerException();
@@ -187,6 +193,12 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
       List<FootballMatchModel> matches = matchesList
           .map((dynamic item) => FootballMatchModel.fromJson(item))
           .toList();
+
+      const allowedLeagues = [39, 135, 78, 140, 1];
+
+      matches = matches.where((m) {
+        return allowedLeagues.contains(m.league?.id);
+      }).toList();
 
       return matches;
     } else {
@@ -311,6 +323,13 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
             .map((dynamic item) => FootballMatchModel.fromJson(item))
             .toList();
 
+        const allowedLeagues = [39, 135, 78, 140, 1];
+
+        matches = matches.where((m) {
+          return allowedLeagues.contains(m.league?.id);
+        }).toList();
+        
+
         return matches;
       } else {
         return [];
@@ -326,8 +345,7 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
     String listId = ids.join('-');
 
     final response = await http.get(
-        WebUri(
-            FootballApi.fixtureApi + '?ids=$listId&timezone=Asia/Singapore'),
+        WebUri(FootballApi.fixtureApi + '?ids=$listId&timezone=Asia/Singapore'),
         headers: FootballApi.footballHeaders);
 
     var body;
@@ -367,6 +385,12 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
       List<FootballMatchModel> matches = matchesList
           .map((dynamic item) => FootballMatchModel.fromJson(item))
           .toList();
+
+      const allowedLeagues = [39, 135, 78, 140, 1];
+
+      matches = matches.where((m) {
+        return allowedLeagues.contains(m.league?.id);
+      }).toList();
 
       return matches;
     } else {
@@ -636,7 +660,7 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
   Future<List<PlayerStatsInfoV2>> getPlayerStatsInfo(
       String id, String season) async {
     final response = await http.get(
-        WebUri("https://api-football-v1.p.rapidapi.com/v2/players/team/$id"),
+        WebUri("https://v3.football.api-sports.io/players/team/$id"),
         headers: FootballApi.footballHeaders);
 
     if (response.statusCode == 200) {

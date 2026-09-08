@@ -49,8 +49,14 @@ class _FootballMatchPageState extends State<FootballMatchPage>
     )
   ];
   TabController? _tabController;
-  List<int> leaguesID = [39, 61, 78, 140, 1];
-  List<int> betable = [39, 61, 78, 140];
+  // premier 39
+  // Ligue 61
+  // BundesLiga 78
+  // Wolrd 1
+  // Laliga 140
+  // Serie A 135
+  List<int> leaguesID = [39, 135, 78, 140, 1];
+  List<int> betable = [39, 135, 78, 140];
   double _width = 30;
   double _height = 30;
 
@@ -62,167 +68,218 @@ class _FootballMatchPageState extends State<FootballMatchPage>
   @override
   void initState() {
     super.initState();
-    List<LeagueDetails> cloneList =
-        List<LeagueDetails>.from(Constant.staticLeagues);
 
-    leagueList = cloneList.where((e) {
-      return leaguesID.contains(e.league.id);
-    }).toList();
+    leagueList = Constant.staticLeagues
+        .where((e) => leaguesID.contains(e.league.id))
+        .toList();
 
-    final eplIndex =
-        leagueList.indexWhere((element) => element.league.id == 39);
-    final wcIndex =
-        (leagueList.indexWhere((element) => element.league.id == 1));
-    final epl = leagueList[eplIndex];
-    final wc = leagueList[wcIndex];
-    leagueList.remove(epl);
-    leagueList.remove(wc);
+    listWidget.addAll(
+      leagueList.map(
+        (e) => FootballMatchTabBarView(league: e),
+      ),
+    );
 
-    leagueList.insert(0, epl);
-    leagueList.insert(4, wc);
-    if (Constant.auth != null &&
-        Constant.customerRewardDetail!.leagues.length > 0) {
-      final personalizeList = cloneList
-          .where((element) => Constant.customerRewardDetail!.leagues
-              .contains(element.league.id))
-          .toList();
-      leagueList.insertAll(0, personalizeList);
-    }
-
-    listWidget.addAll(leagueList
-        .map((e) => FootballMatchTabBarView(
-              league: e,
-            ))
-        .toList());
-
-    _tabController = new TabController(
+    tabList.addAll(
+      leagueList.map(
+        (e) => Tab(
+          text: e.league.name,
+        ),
+      ),
+    );
+    
+    _tabController = TabController(
       vsync: this,
       length: listWidget.length,
     );
-
-    tabList.addAll(leagueList
-        .map(
-          (e) => Stack(
-              fit: StackFit.passthrough,
-              alignment: AlignmentDirectional.bottomEnd,
-              children: [
-                Tab(
-                  icon: Row(
-                    children: [
-                      // Container(
-                      //   height: 30,
-                      //   width: 30,
-                      //   color: e.country!.flag == null
-                      //       ? Colors.white
-                      //       : Colors.transparent,
-                      //   margin: EdgeInsets.only(right: 3),
-                      //   padding: EdgeInsets.all(5),
-                      //   child: e.country!.flag == null
-                      //       ? FadeInImage.memoryNetwork(
-                      //           placeholder: kTransparentImage,
-                      //           image: e.league.logo!,
-                      //           imageErrorBuilder: (e, o, c) {
-                      //             return Container();
-                      //           })
-                      //       : SvgPicture.network(
-                      //           e.country!.flag!,
-                      //           // placeholderBuilder: (BuildContext context) => Container(
-                      //           //     padding: const EdgeInsets.all(30.0),
-                      //           //     child: const CircularProgressIndicator()),
-                      //         ),
-                      // ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            e.league.id == 1
-                                ? 'FIFA World Cup(tm)'
-                                : e.league.name,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            e.country!.name,
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
-                      ),
-                      if (leagueList.last.league.id == e.league.id)
-                        Container(
-                          width: 70,
-                        )
-                    ],
-                  ),
-                ),
-                // Container(
-                //   color: Constant.color2,
-                //   padding: EdgeInsets.all(2),
-                //   child: AutoSizeText(
-                //     "Bet",
-                //     style: TextStyle(fontSize: 10, color: Colors.black),
-                //     minFontSize: 6,
-                //     maxLines: 1,
-                //   ),
-                // )
-                // if (betable.contains(e.league.id))
-                //   CornerBanner(
-                //     bannerPosition: CornerBannerPosition.bottomRight,
-                //     bannerColor: Constant.color2.withOpacity(0.5),
-                //     child: AutoSizeText(
-                //       "Bet",
-                //       style: TextStyle(fontSize: 10, color: Colors.black),
-                //       minFontSize: 6,
-                //       maxLines: 1,
-                //     ),
-                //   ),
-              ]),
-        )
-        .toList());
-
-    // if (Constant.customerRewardDetail != null && Constant.customerRewardDetail!.leagues.length >0) {
-    //   print('got pay load bo?');
-    //   if (leagueList.firstWhereOrNull(
-    //           (e) => e.league.id.toString() == Constant.payload) !=
-    //       null) {
-    //     print('is not null pay load');
-    //     _tabController.animateTo((leagueList
-    //             .indexWhere((e) => e.league.id.toString() == Constant.payload) +
-    //         1));
-    //     Constant.payload = '';
-    //   } else {
-    //     print('is null');
-
-    //     _tabController.animateTo(0);
-    //     Constant.payload = '';
-    //   }
-    // }
-    // _tabController = TabController(
-    //   vsync: this,
-    //   length: 5,
-    // );
-
-    // _tabController.addListener(() {
-    //   if (_tabController.indexIsChanging) {
-    //     serviceLocator<AnalyticsService>().logScreens(
-    //         name: '/footballMatchPage/' +
-    //             leagueList[_tabController.index].league.name);
-    //   }
-    // });
-
-    _footballMatchBloc.add(CheckMatchTutorialRequest());
-    _videoDetailsBloc.add(GetRecentFeedRequest());
-
-    // WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //   ShowCaseWidget.of(context).startShowCase([
-    //     Constant.matchTabKey,
-    //     // _key2,
-    //     // Constant.matchBetKey,
-    //     // Constant.favouriteIcon,
-    //   ]);
-    // });
-    //   },
-    // );
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   List<LeagueDetails> cloneList =
+  //       List<LeagueDetails>.from(Constant.staticLeagues);
+
+  //   leagueList = cloneList.where((e) {
+  //     return leaguesID.contains(e.league.id);
+  //   }).toList();
+
+  //   final eplIndex =
+  //       leagueList.indexWhere((element) => element.league.id == 39);
+
+  //   if (eplIndex != -1) {
+  //     final epl = leagueList.removeAt(eplIndex);
+  //     leagueList.insert(0, epl);
+  //   }
+
+  //   final wcIndex = leagueList.indexWhere((element) => element.league.id == 1);
+
+  //   if (wcIndex != -1) {
+  //     final wc = leagueList.removeAt(wcIndex);
+  //     leagueList.insert(
+  //       leagueList.length >= 4 ? 4 : leagueList.length,
+  //       wc,
+  //     );
+  //   }
+
+  //   // final eplIndex =
+  //   //     leagueList.indexWhere((element) => element.league.id == 39);
+  //   // final wcIndex =
+  //   //     (leagueList.indexWhere((element) => element.league.id == 1));
+
+  //   // final epl = leagueList[eplIndex];
+  //   // final wc = leagueList[wcIndex];
+  //   // leagueList.remove(epl);
+  //   // leagueList.remove(wc);
+
+  //   // leagueList.insert(0, epl);
+  //   // // leagueList.insert(4, wc);
+  //   // leagueList.insert(
+  //   //   leagueList.length >= 4 ? 4 : leagueList.length,
+  //   //   wc,
+  //   // );
+  //   if (Constant.auth != null &&
+  //       Constant.customerRewardDetail!.leagues.length > 0) {
+  //     final personalizeList = cloneList
+  //         .where((element) => Constant.customerRewardDetail!.leagues
+  //             .contains(element.league.id))
+  //         .toList();
+  //     leagueList.insertAll(0, personalizeList);
+  //   }
+
+  //   listWidget.addAll(leagueList
+  //       .map((e) => FootballMatchTabBarView(
+  //             league: e,
+  //           ))
+  //       .toList());
+
+  //   _tabController = new TabController(
+  //     vsync: this,
+  //     length: listWidget.length,
+  //   );
+
+  //   tabList.addAll(leagueList
+  //       .map(
+  //         (e) => Stack(
+  //             fit: StackFit.passthrough,
+  //             alignment: AlignmentDirectional.bottomEnd,
+  //             children: [
+  //               Tab(
+  //                 icon: Row(
+  //                   children: [
+  //                     // Container(
+  //                     //   height: 30,
+  //                     //   width: 30,
+  //                     //   color: e.country!.flag == null
+  //                     //       ? Colors.white
+  //                     //       : Colors.transparent,
+  //                     //   margin: EdgeInsets.only(right: 3),
+  //                     //   padding: EdgeInsets.all(5),
+  //                     //   child: e.country!.flag == null
+  //                     //       ? FadeInImage.memoryNetwork(
+  //                     //           placeholder: kTransparentImage,
+  //                     //           image: e.league.logo!,
+  //                     //           imageErrorBuilder: (e, o, c) {
+  //                     //             return Container();
+  //                     //           })
+  //                     //       : SvgPicture.network(
+  //                     //           e.country!.flag!,
+  //                     //           // placeholderBuilder: (BuildContext context) => Container(
+  //                     //           //     padding: const EdgeInsets.all(30.0),
+  //                     //           //     child: const CircularProgressIndicator()),
+  //                     //         ),
+  //                     // ),
+  //                     Column(
+  //                       mainAxisAlignment: MainAxisAlignment.center,
+  //                       crossAxisAlignment: CrossAxisAlignment.start,
+  //                       children: [
+  //                         Text(
+  //                           e.league.id == 1
+  //                               ? 'FIFA World Cup(tm)'
+  //                               : e.league.name,
+  //                           style: TextStyle(fontWeight: FontWeight.bold),
+  //                         ),
+  //                         Text(
+  //                           e.country!.name,
+  //                           style: TextStyle(fontSize: 10),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     if (leagueList.last.league.id == e.league.id)
+  //                       Container(
+  //                         width: 70,
+  //                       )
+  //                   ],
+  //                 ),
+  //               ),
+  //               // Container(
+  //               //   color: Constant.color2,
+  //               //   padding: EdgeInsets.all(2),
+  //               //   child: AutoSizeText(
+  //               //     "Bet",
+  //               //     style: TextStyle(fontSize: 10, color: Colors.black),
+  //               //     minFontSize: 6,
+  //               //     maxLines: 1,
+  //               //   ),
+  //               // )
+  //               // if (betable.contains(e.league.id))
+  //               //   CornerBanner(
+  //               //     bannerPosition: CornerBannerPosition.bottomRight,
+  //               //     bannerColor: Constant.color2.withOpacity(0.5),
+  //               //     child: AutoSizeText(
+  //               //       "Bet",
+  //               //       style: TextStyle(fontSize: 10, color: Colors.black),
+  //               //       minFontSize: 6,
+  //               //       maxLines: 1,
+  //               //     ),
+  //               //   ),
+  //             ]),
+  //       )
+  //       .toList());
+
+  //   // if (Constant.customerRewardDetail != null && Constant.customerRewardDetail!.leagues.length >0) {
+  //   //   print('got pay load bo?');
+  //   //   if (leagueList.firstWhereOrNull(
+  //   //           (e) => e.league.id.toString() == Constant.payload) !=
+  //   //       null) {
+  //   //     print('is not null pay load');
+  //   //     _tabController.animateTo((leagueList
+  //   //             .indexWhere((e) => e.league.id.toString() == Constant.payload) +
+  //   //         1));
+  //   //     Constant.payload = '';
+  //   //   } else {
+  //   //     print('is null');
+
+  //   //     _tabController.animateTo(0);
+  //   //     Constant.payload = '';
+  //   //   }
+  //   // }
+  //   // _tabController = TabController(
+  //   //   vsync: this,
+  //   //   length: 5,
+  //   // );
+
+  //   // _tabController.addListener(() {
+  //   //   if (_tabController.indexIsChanging) {
+  //   //     serviceLocator<AnalyticsService>().logScreens(
+  //   //         name: '/footballMatchPage/' +
+  //   //             leagueList[_tabController.index].league.name);
+  //   //   }
+  //   // });
+
+  //   // _footballMatchBloc.add(CheckMatchTutorialRequest());
+  //   // _videoDetailsBloc.add(GetRecentFeedRequest());
+
+  //   // WidgetsBinding.instance?.addPostFrameCallback((_) {
+  //   //   ShowCaseWidget.of(context).startShowCase([
+  //   //     Constant.matchTabKey,
+  //   //     // _key2,
+  //   //     // Constant.matchBetKey,
+  //   //     // Constant.favouriteIcon,
+  //   //   ]);
+  //   // });
+  //   //   },
+  //   // );
+  // }
 
   @override
   void dispose() {
@@ -513,53 +570,57 @@ class _FootballMatchPageState extends State<FootballMatchPage>
         ),
       ),
       body: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => _footballMatchBloc,
-          ),
-          BlocProvider(
-            create: (context) => _videoDetailsBloc,
-          ),
-        ],
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<FootballMatchBloc, FootballMatchState>(
-              listener: (context, state) {
-                if (state is MatchTutorialChecked) {
-                  if (!state.bet) {
-                    _footballMatchBloc.add(PersistMatchTutorialRequest());
-                  }
-                }
-
-                if (state is MatchTutorialPersisted) {
-                  if (state.bet) {
-                    setState(() {
-                      Constant.showcaseBool = true;
-                    });
-                    // ShowCaseWidget.of(context).startShowCase([
-                    //   Constant.matchTabKey,
-                    //   // _key2,
-                    //   // Constant.matchBetKey,
-                    //   // Constant.favouriteIcon,
-                    // ]);
-                  }
-                }
-                // TODO: implement listener
-              },
+          providers: [
+            BlocProvider(
+              create: (context) => _footballMatchBloc,
             ),
-            BlocListener<VideoDetailsBloc, VideoDetailsState>(
-              listener: (context, state) {
-                if (state is RecentFeedLoaded) {
-                  setState(() {
-                    Constant.recentFeeds = state.videos;
-                  });
-                }
-              },
+            BlocProvider(
+              create: (context) => _videoDetailsBloc,
             ),
           ],
-          child: TabBarView(controller: _tabController, children: listWidget),
-        ),
-      ),
+          child: TabBarView(
+            controller: _tabController,
+            children: listWidget,
+          )
+          // MultiBlocListener(
+          //   listeners: [
+          //     // BlocListener<FootballMatchBloc, FootballMatchState>(
+          //     //   listener: (context, state) {
+          //     //     if (state is MatchTutorialChecked) {
+          //     //       if (!state.bet) {
+          //     //         _footballMatchBloc.add(PersistMatchTutorialRequest());
+          //     //       }
+          //     //     }
+
+          //     //     if (state is MatchTutorialPersisted) {
+          //     //       if (state.bet) {
+          //     //         setState(() {
+          //     //           Constant.showcaseBool = true;
+          //     //         });
+          //     //         // ShowCaseWidget.of(context).startShowCase([
+          //     //         //   Constant.matchTabKey,
+          //     //         //   // _key2,
+          //     //         //   // Constant.matchBetKey,
+          //     //         //   // Constant.favouriteIcon,
+          //     //         // ]);
+          //     //       }
+          //     //     }
+          //     //     // TODO: implement listener
+          //     //   },
+          //     // ),
+          //     // BlocListener<VideoDetailsBloc, VideoDetailsState>(
+          //     //   listener: (context, state) {
+          //     //     if (state is RecentFeedLoaded) {
+          //     //       setState(() {
+          //     //         Constant.recentFeeds = state.videos;
+          //     //       });
+          //     //     }
+          //     //   },
+          //     // ),
+          //   ],
+          //   child: TabBarView(controller: _tabController, children: listWidget),
+          // ),
+          ),
 
       //  TabBarView(
       //   children: [
@@ -581,146 +642,146 @@ class _FootballMatchPageState extends State<FootballMatchPage>
   }
 }
 
-List<Widget> tabBarWidget(
-  List<LeagueDetails> leagues,
-  TabController controller,
-  List<int> betable,
-) {
-  return leagues
-      .map(
-        (e) => e.league.id == 39
-            ? Showcase.withWidget(
-                width: 0,
-                height: 30,
-                key: Constant.matchTabKey,
-                // child: Text(
-                //   "we have bet system for users to earn more coin, tap on the league tab to proceed.",
-                // ),
-                // overlayPadding: EdgeInsets.symmetric(horizontal: 10),
-                // description:
-                //     "we have bet system for users to earn more coin, tap on the league tab to proceed.",
-                onTargetClick: () {
-                  controller.animateTo((leagues.indexWhere(
-                          (element) => element.league.id == betable[0]) +
-                      1));
-                },
-                // onToolTipClick: () {
-                //   controller.animateTo((leagues.indexWhere(
-                //           (element) => element.league.id == betable[0]) +
-                //       1));
-                // },
-                disposeOnTap: true,
-                container: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      controller.animateTo(1);
-                      ShowCaseWidget.of(Constant.matchTabKey.currentContext!)
-                          .dismiss();
-                    },
-                    child: Container(
-                      width: 200,
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(right: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.white,
-                      ),
-                      // margin: EdgeInsets.only(left: 20),
-                      child: Column(children: [
-                        Text(
-                            'we have bet system for users to earn more coin, tap on the league tab to proceed.',
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            )),
-                        // ElevatedButton(
-                        //     style: ElevatedButton.styleFrom(
-                        //       primary: Constant.color1,
-                        //     ),
-                        //     onPressed: () {},
-                        //     child: Text("Next"))
-                      ]),
-                    ),
-                  ),
-                ),
-                child: Stack(
-                    fit: StackFit.passthrough,
-                    alignment: AlignmentDirectional.bottomEnd,
-                    children: [
-                      Tab(
-                          icon: Text(
-                        e.league.id == 1 ? 'FIFA World Cup(tm)' : e.league.name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                      // Container(
-                      //   color: Constant.color2,
-                      //   padding: EdgeInsets.all(2),
-                      //   child: AutoSizeText(
-                      //     "Bet",
-                      //     style: TextStyle(fontSize: 10, color: Colors.black),
-                      //     minFontSize: 6,
-                      //     maxLines: 1,
-                      //   ),
-                      // )
-                      // if (betable.contains(e.league.id))
-                      //   CornerBanner(
-                      //     bannerPosition: CornerBannerPosition.bottomRight,
-                      //     bannerColor: Constant.color2.withOpacity(0.5),
-                      //     child: AutoSizeText(
-                      //       "Bet",
-                      //       style: TextStyle(fontSize: 10, color: Colors.black),
-                      //       minFontSize: 6,
-                      //       maxLines: 1,
-                      //     ),
-                      //   ),
-                    ]))
-            : Stack(
-                fit: StackFit.passthrough,
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Tab(
-                            icon: Text(
-                              e.league.id == 1
-                                  ? 'FIFA World Cup(tm)'
-                                  : e.league.name,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        if (leagues.last.league.id == e.league.id)
-                          Container(
-                            color: Colors.yellow,
-                            width: 100,
-                            height: 10,
-                          )
-                      ],
-                    ),
-                    // Container(
-                    //   color: Constant.color2,
-                    //   padding: EdgeInsets.all(2),
-                    //   child: AutoSizeText(
-                    //     "Bet",
-                    //     style: TextStyle(fontSize: 10, color: Colors.black),
-                    //     minFontSize: 6,
-                    //     maxLines: 1,
-                    //   ),
-                    // )
-                    // if (betable.contains(e.league.id))
-                    //   CornerBanner(
-                    //     bannerPosition: CornerBannerPosition.bottomRight,
-                    //     bannerColor: Constant.color2.withOpacity(0.5),
-                    //     child: AutoSizeText(
-                    //       "Bet",
-                    //       style: TextStyle(fontSize: 10, color: Colors.black),
-                    //       minFontSize: 6,
-                    //       maxLines: 1,
-                    //     ),
-                    //   ),
-                  ]),
-      )
-      .toList();
-}
+// List<Widget> tabBarWidget(
+//   List<LeagueDetails> leagues,
+//   TabController controller,
+//   List<int> betable,
+// ) {
+//   // return leagues
+//   //     .map(
+//   //       (e) => e.league.id == 39
+//   //           ? Showcase.withWidget(
+//   //               width: 0,
+//   //               height: 30,
+//   //               key: Constant.matchTabKey,
+//   //               // child: Text(
+//   //               //   "we have bet system for users to earn more coin, tap on the league tab to proceed.",
+//   //               // ),
+//   //               // overlayPadding: EdgeInsets.symmetric(horizontal: 10),
+//   //               // description:
+//   //               //     "we have bet system for users to earn more coin, tap on the league tab to proceed.",
+//   //               onTargetClick: () {
+//   //                 controller.animateTo((leagues.indexWhere(
+//   //                         (element) => element.league.id == betable[0]) +
+//   //                     1));
+//   //               },
+//   //               // onToolTipClick: () {
+//   //               //   controller.animateTo((leagues.indexWhere(
+//   //               //           (element) => element.league.id == betable[0]) +
+//   //               //       1));
+//   //               // },
+//   //               disposeOnTap: true,
+//   //               container: Center(
+//   //                 child: GestureDetector(
+//   //                   onTap: () {
+//   //                     controller.animateTo(1);
+//   //                     ShowCaseWidget.of(Constant.matchTabKey.currentContext!)
+//   //                         .dismiss();
+//   //                   },
+//   //                   child: Container(
+//   //                     width: 200,
+//   //                     padding: EdgeInsets.all(10),
+//   //                     margin: EdgeInsets.only(right: 20),
+//   //                     decoration: BoxDecoration(
+//   //                       borderRadius: BorderRadius.circular(10.0),
+//   //                       color: Colors.white,
+//   //                     ),
+//   //                     // margin: EdgeInsets.only(left: 20),
+//   //                     child: Column(children: [
+//   //                       Text(
+//   //                           'we have bet system for users to earn more coin, tap on the league tab to proceed.',
+//   //                           textAlign: TextAlign.justify,
+//   //                           style: TextStyle(
+//   //                             color: Colors.black,
+//   //                             fontWeight: FontWeight.w500,
+//   //                           )),
+//   //                       // ElevatedButton(
+//   //                       //     style: ElevatedButton.styleFrom(
+//   //                       //       primary: Constant.color1,
+//   //                       //     ),
+//   //                       //     onPressed: () {},
+//   //                       //     child: Text("Next"))
+//   //                     ]),
+//   //                   ),
+//   //                 ),
+//   //               ),
+//   //               child: Stack(
+//   //                   fit: StackFit.passthrough,
+//   //                   alignment: AlignmentDirectional.bottomEnd,
+//   //                   children: [
+//   //                     Tab(
+//   //                         icon: Text(
+//   //                       e.league.id == 1 ? 'FIFA World Cup(tm)' : e.league.name,
+//   //                       style: TextStyle(fontWeight: FontWeight.bold),
+//   //                     )),
+//   //                     // Container(
+//   //                     //   color: Constant.color2,
+//   //                     //   padding: EdgeInsets.all(2),
+//   //                     //   child: AutoSizeText(
+//   //                     //     "Bet",
+//   //                     //     style: TextStyle(fontSize: 10, color: Colors.black),
+//   //                     //     minFontSize: 6,
+//   //                     //     maxLines: 1,
+//   //                     //   ),
+//   //                     // )
+//   //                     // if (betable.contains(e.league.id))
+//   //                     //   CornerBanner(
+//   //                     //     bannerPosition: CornerBannerPosition.bottomRight,
+//   //                     //     bannerColor: Constant.color2.withOpacity(0.5),
+//   //                     //     child: AutoSizeText(
+//   //                     //       "Bet",
+//   //                     //       style: TextStyle(fontSize: 10, color: Colors.black),
+//   //                     //       minFontSize: 6,
+//   //                     //       maxLines: 1,
+//   //                     //     ),
+//   //                     //   ),
+//   //                   ]))
+//   //           : Stack(
+//   //               fit: StackFit.passthrough,
+//   //               alignment: AlignmentDirectional.bottomEnd,
+//   //               children: [
+//   //                   Row(
+//   //                     children: [
+//   //                       Expanded(
+//   //                         child: Tab(
+//   //                           icon: Text(
+//   //                             e.league.id == 1
+//   //                                 ? 'FIFA World Cup(tm)'
+//   //                                 : e.league.name,
+//   //                             style: TextStyle(fontWeight: FontWeight.bold),
+//   //                           ),
+//   //                         ),
+//   //                       ),
+//   //                       if (leagues.last.league.id == e.league.id)
+//   //                         Container(
+//   //                           color: Colors.yellow,
+//   //                           width: 100,
+//   //                           height: 10,
+//   //                         )
+//   //                     ],
+//   //                   ),
+//   //                   // Container(
+//   //                   //   color: Constant.color2,
+//   //                   //   padding: EdgeInsets.all(2),
+//   //                   //   child: AutoSizeText(
+//   //                   //     "Bet",
+//   //                   //     style: TextStyle(fontSize: 10, color: Colors.black),
+//   //                   //     minFontSize: 6,
+//   //                   //     maxLines: 1,
+//   //                   //   ),
+//   //                   // )
+//   //                   // if (betable.contains(e.league.id))
+//   //                   //   CornerBanner(
+//   //                   //     bannerPosition: CornerBannerPosition.bottomRight,
+//   //                   //     bannerColor: Constant.color2.withOpacity(0.5),
+//   //                   //     child: AutoSizeText(
+//   //                   //       "Bet",
+//   //                   //       style: TextStyle(fontSize: 10, color: Colors.black),
+//   //                   //       minFontSize: 6,
+//   //                   //       maxLines: 1,
+//   //                   //     ),
+//   //                   //   ),
+//   //                 ]),
+//       // )
+//       // .toList();
+// }

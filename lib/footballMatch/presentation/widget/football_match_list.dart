@@ -76,30 +76,34 @@ class _FootballMatchListState extends State<FootballMatchList>
     //     .orderByChild('fixture/id')
     //     .equalTo('720006');
     // print(query.get());
+    if (widget.league.seasons == null || widget.league.seasons!.isEmpty) {
+      return;
+    }
+
     _footballMatchBloc.add(GetFixturesByLeagueRequest(
         leagueId: widget.league.league.id.toString(),
         season: widget.league.seasons!.last.year.toString()));
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      if (Constant.auth != null && Constant.showcaseBool == false)
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoginLoadingDialog();
-          },
-        );
+    // WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    //   if (Constant.auth != null && Constant.showcaseBool == false)
+    //     showDialog(
+    //       context: context,
+    //       barrierDismissible: false,
+    //       builder: (BuildContext context) {
+    //         return LoginLoadingDialog();
+    //       },
+    //     );
 
-      // if (Constant.showcaseBool && widget.league.league.id == 39)
-      //   setState(() {
-      //     ShowCaseWidget.of(context).startShowCase([
-      //       Constant.matchIncomingKey,
-      //     ]);
-      //   });
-    });
+    //   // if (Constant.showcaseBool && widget.league.league.id == 39)
+    //   //   setState(() {
+    //   //     ShowCaseWidget.of(context).startShowCase([
+    //   //       Constant.matchIncomingKey,
+    //   //     ]);
+    //   //   });
+    // });
 
-    serviceLocator<AnalyticsService>().logScreens(
-        name: '/footballMatchPage/' + widget.league.league.name + '/match');
+    // serviceLocator<AnalyticsService>().logScreens(
+    //     name: '/footballMatchPage/' + widget.league.league.name + '/match');
     super.initState();
   }
 
@@ -241,7 +245,9 @@ class _FootballMatchListState extends State<FootballMatchList>
                   //   },
                   // );
 
-                  if (Constant.betList[0].length > 0) {
+                  if (Constant.betList.isNotEmpty &&
+                      Constant.betList.length > 1 &&
+                      Constant.betList[0].isNotEmpty) {
                     List<FootballMatch> containBet = footballMatches
                         .where((e) =>
                             Constant.betList[0].firstWhereOrNull(
@@ -264,8 +270,10 @@ class _FootballMatchListState extends State<FootballMatchList>
                                 status == 'PEN')) {
                           Constant.betList[0].remove(bet);
 
-                          Constant.betList[1].add(Bet.update(
-                              bet, e.home.winner!, e.away.winner!, status));
+                          if (Constant.betList.length > 1) {
+                            Constant.betList[1].add(Bet.update(
+                                bet, e.home.winner!, e.away.winner!, status));
+                          }
 
                           if (Constant.betList[1].length > 200) {
                             int half_length = Constant.betList[1].length ~/ 2;

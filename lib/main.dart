@@ -28,15 +28,15 @@ import 'package:uni_links/uni_links.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //     options: FirebaseOptions(
-  //         datab``aseURL:
-  //             "https://ssc-soccersport-default-rtdb.asia-southeast1.firebasedatabase.app",
-  //         apiKey: 'AIzaSyDBUOSuDKPeI7pI8ASDWb0xD9cN4_OSMto',
-  //         measurementId: "G-JDX5SXW3LS",
-  //         appId: '1:748191188018:web:f6742c7675b869aa6ee82b',
-  //         messagingSenderId: '748191188018',
-  //         projectId: 'ssc-soccersport'));
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          databaseURL:
+              "https://ssc-soccersport-default-rtdb.asia-southeast1.firebasedatabase.app",
+          apiKey: 'AIzaSyDBUOSuDKPeI7pI8ASDWb0xD9cN4_OSMto',
+          measurementId: "G-JDX5SXW3LS",
+          appId: '1:748191188018:web:f6742c7675b869aa6ee82b',
+          messagingSenderId: '748191188018',
+          projectId: 'ssc-soccersport'));
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp();
@@ -98,10 +98,10 @@ Future<void> main() async {
   );
 }
 
-Future<void> initUniLinks() async {
-  // Get the initial link and handle it if there is one
-  final initialUri = await getInitialUri();
-}
+// Future<void> initUniLinks() async {
+//   // Get the initial link and handle it if there is one
+//   final initialUri = await getInitialUri();
+// }
 
 class FootballScoreApp extends StatefulWidget {
   @override
@@ -115,17 +115,17 @@ class _FootballScoreAppState extends State<FootballScoreApp> {
   void initState() {
     super.initState();
 
-    _initUniLinksSafe();
+    // _initUniLinksSafe();
   }
 
-  Future<void> _initUniLinksSafe() async {
-    try {
-      final uri = await getInitialUri();
-      print("Initial URI: $uri");
-    } catch (e) {
-      print("UniLinks error: $e");
-    }
-  }
+  // Future<void> _initUniLinksSafe() async {
+  //   try {
+  //     final uri = await getInitialUri();
+  //     print("Initial URI: $uri");
+  //   } catch (e) {
+  //     print("UniLinks error: $e");
+  //   }
+  // }
 
   // @override
   // void initState() {
@@ -146,7 +146,7 @@ class _FootballScoreAppState extends State<FootballScoreApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorObservers: [
-        serviceLocator<AnalyticsService>().getAnalyticsObserver()
+        // serviceLocator<AnalyticsService>().getAnalyticsObserver()
       ],
       title: 'Football score',
       theme: ThemeData(
@@ -208,7 +208,7 @@ class _FootballScoreAppState extends State<FootballScoreApp> {
           errorStyle: new TextStyle(color: Constant.color1),
         ),
       ),
-      home: Splash(),
+      home: FootballMatchPage(),
 
       //  AnimatedSplashScreen(
       //   splash: Icons.home,
@@ -219,14 +219,14 @@ class _FootballScoreAppState extends State<FootballScoreApp> {
       // ),
 
       routes: {
-        '/homepage': (context) => HomePage(),
-        '/newspage': (context) => NewsPage(),
-        '/footballMatchPage': (context) => FootballMatchPage(),
-        '/statsPage': (context) => LeaguePage(),
-        '/settingPage': (context) => SettingPage(),
-        '/settingPage/term&conditions': (context) => TermsConditionPage(),
-        '/settingPage/aboutus': (context) => AboutUsPage(),
-        '/splash': (context) => Splash(),
+        // '/homepage': (context) => HomePage(),
+        // '/newspage': (context) => NewsPage(),
+        // '/footballMatchPage': (context) => FootballMatchPage(),
+        // '/statsPage': (context) => LeaguePage(),
+        // '/settingPage': (context) => SettingPage(),
+        // '/settingPage/term&conditions': (context) => TermsConditionPage(),
+        // '/settingPage/aboutus': (context) => AboutUsPage(),
+        // '/splash': (context) => Splash(),
       },
     );
   }

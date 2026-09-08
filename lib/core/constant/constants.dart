@@ -22,17 +22,17 @@ import '../../footballMatch/domain/entities/team.dart';
 
 class FootballApi {
   static String fixtureApi =
-      "https://api-football-v1.p.rapidapi.com/v3/fixtures";
+      "https://v3.football.api-sports.io/fixtures";
   static String predictionsApi =
-      "https://api-football-v1.p.rapidapi.com/v3/predictions";
+      "https://v3.football.api-sports.io/predictions";
   static String injuriesApi =
-      "https://api-football-v1.p.rapidapi.com/v3/injuries";
+      "https://v3.football.api-sports.io/injuries";
   static String statistics =
-      "https://api-football-v1.p.rapidapi.com/v3/statistics";
+      "https://v3.football.api-sports.io/statistics";
 
   static String standingsApi =
-      "https://api-football-v1.p.rapidapi.com/v3/standings";
-  static String leagueApi = "https://api-football-v1.p.rapidapi.com/v3/leagues";
+      "https://v3.football.api-sports.io/standings";
+  static String leagueApi = "https://v3.football.api-sports.io/leagues";
   static String luckyDrawApi =
       'https://soccersport.club/wp-json/wl/v1/lucky_draw';
   static String customerUrl = 'customers';
@@ -42,7 +42,7 @@ class FootballApi {
   static String productsURL = 'products';
 
   static String topScoreApi =
-      "https://api-football-v1.p.rapidapi.com/v3/players/topscorers";
+      "https://v3.football.api-sports.io/players/topscorers";
 
   static String newsApi = "https://soccersport.club/wp-json/wp/v2/posts";
   static String newsCustomApi = "https://soccersport.club/wp-json/wl/v1/posts";
@@ -63,8 +63,7 @@ class FootballApi {
   static String bannerApi =
       "https://soccersport.club/wp-json/wl/v1/get_banner_url";
   static const footballHeaders = {
-    'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
-    'x-rapidapi-key': "876902b94emsh77d0b36a425e854p10c55cjsnb35e634c87ad"
+     "x-apisports-key": "c1d890ace076bef9b4a6199f081ed86a",
   };
 
   static const newsHeaders = {"Accept": "application/json"};
