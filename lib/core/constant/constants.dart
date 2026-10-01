@@ -62,10 +62,13 @@ class FootballApi {
       "https://soccersport.club/wp-json/jwt-auth/v1/token";
   static String bannerApi =
       "https://soccersport.club/wp-json/wl/v1/get_banner_url";
-  static const footballHeaders = {
-     "x-apisports-key": "c1d890ace076bef9b4a6199f081ed86a",
+//   static const footballHeaders = {
+//      "x-apisports-key": "c1d890ace076bef9b4a6199f081ed86a",
+//   };
+    static const footballHeaders = {
+     "x-apisports-key": "7471276e8579f09d3a832f173d738621",
   };
-
+  
   static const newsHeaders = {"Accept": "application/json"};
   static String deleteUserURL =
       'https://soccersport.club/wp-json/wp/v2/users/me';

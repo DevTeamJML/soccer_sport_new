@@ -77,7 +77,21 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
           .map((dynamic item) => FootballMatchModel.fromJson(item))
           .toList();
 
-      const allowedLeagues = [39, 135, 78, 140, 1];
+      // const allowedLeagues = [39, 135, 78, 140, 1];
+
+      const allowedLeagues = [
+        39, // Premier League
+        78, // Bundesliga
+        135, // Serie A
+        140, // La Liga
+        61, // Ligue 1
+        2, // UEFA Champions League
+        3, // UEFA Europa League
+        848, // UEFA Europa Conference League
+        5, // UEFA Nations League
+        1, //
+        850
+      ];
 
       matches = matches.where((m) {
         return allowedLeagues.contains(m.league?.id);
@@ -194,7 +208,20 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
           .map((dynamic item) => FootballMatchModel.fromJson(item))
           .toList();
 
-      const allowedLeagues = [39, 135, 78, 140, 1];
+      // const allowedLeagues = [39, 135, 78, 140, 1];
+      const allowedLeagues = [
+        39, // Premier League
+        78, // Bundesliga
+        135, // Serie A
+        140, // La Liga
+        61, // Ligue 1
+        2, // UEFA Champions League
+        3, // UEFA Europa League
+        848, // UEFA Europa Conference League
+        5, // UEFA Nations League
+        1, //
+        850
+      ];
 
       matches = matches.where((m) {
         return allowedLeagues.contains(m.league?.id);
@@ -323,12 +350,24 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
             .map((dynamic item) => FootballMatchModel.fromJson(item))
             .toList();
 
-        const allowedLeagues = [39, 135, 78, 140, 1];
+        // const allowedLeagues = [39, 135, 78, 140, 1];
+        const allowedLeagues = [
+          39, // Premier League
+          78, // Bundesliga
+          135, // Serie A
+          140, // La Liga
+          61, // Ligue 1
+          2, // UEFA Champions League
+          3, // UEFA Europa League
+          848, // UEFA Europa Conference League
+          5, // UEFA Nations League
+          1, //
+          850
+        ];
 
         matches = matches.where((m) {
           return allowedLeagues.contains(m.league?.id);
         }).toList();
-        
 
         return matches;
       } else {
@@ -386,7 +425,20 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
           .map((dynamic item) => FootballMatchModel.fromJson(item))
           .toList();
 
-      const allowedLeagues = [39, 135, 78, 140, 1];
+      // const allowedLeagues = [39, 135, 78, 140, 1];
+      const allowedLeagues = [
+        39, // Premier League
+        78, // Bundesliga
+        135, // Serie A
+        140, // La Liga
+        61, // Ligue 1
+        2, // UEFA Champions League
+        3, // UEFA Europa League
+        848, // UEFA Europa Conference League
+        5, // UEFA Nations League
+        1, //
+        850
+      ];
 
       matches = matches.where((m) {
         return allowedLeagues.contains(m.league?.id);

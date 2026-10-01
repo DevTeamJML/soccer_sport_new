@@ -96,6 +96,11 @@ class _TeamTablesInfoState extends State<TeamTablesInfo> {
             listener: (context, state) {
               // TODO: implement listener
               if (state is StandingsLoaded) {
+                print("========== STANDINGS LOADED ==========");
+                print("Standings: ${state.standings}");
+                print("Selected league: ${selectedLeague?.league.name}");
+                print("Selected league ID: ${selectedLeague?.league.id}");
+                print("Selected season: ${selectedLeague?.seasons?[0].year}");
                 setState(() {
                   if (state.standings != null) {
                     standingList.add(state.standings!);
