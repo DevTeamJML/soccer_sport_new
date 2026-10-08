@@ -67,7 +67,6 @@ class _FootballMatchPageState extends State<FootballMatchPage>
     848, // UEFA Europa Conference League
     5, // UEFA Nations League
     1, // World Cup
-    850
   ];
   List<int> betable = [
     39, // Premier League
@@ -528,21 +527,21 @@ class _FootballMatchPageState extends State<FootballMatchPage>
                         child: Container(
                             height: 30,
                             width: 30,
-                            child:
-                                // FloatingActionButton(
-                                //   backgroundColor: Constant.color2,
-                                //   onPressed: () {},
-                                //   child: Center(
-                                //       child:
-                                // ),
-                                Container(
-                              color: Constant.color1,
-                              child: Icon(
-                                Icons.add,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                            )),
+                            // child:
+                            //     // FloatingActionButton(
+                            //     //   backgroundColor: Constant.color2,
+                            //     //   onPressed: () {},
+                            //     //   child: Center(
+                            //     //       child:
+                            //     // ),
+                            //     Container(
+                            //   color: Constant.color1,
+                            //   child: Icon(
+                            //     Icons.add,
+                            //     size: 30,
+                            //     color: Colors.white,
+                            //   ),
+                            // )),
                       )),
                     ],
                   ))

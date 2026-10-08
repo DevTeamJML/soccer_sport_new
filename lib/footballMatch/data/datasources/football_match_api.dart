@@ -90,7 +90,6 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
         848, // UEFA Europa Conference League
         5, // UEFA Nations League
         1, //
-        850
       ];
 
       matches = matches.where((m) {
@@ -220,7 +219,6 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
         848, // UEFA Europa Conference League
         5, // UEFA Nations League
         1, //
-        850
       ];
 
       matches = matches.where((m) {
@@ -362,7 +360,6 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
           848, // UEFA Europa Conference League
           5, // UEFA Nations League
           1, //
-          850
         ];
 
         matches = matches.where((m) {
@@ -437,7 +434,6 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
         848, // UEFA Europa Conference League
         5, // UEFA Nations League
         1, //
-        850
       ];
 
       matches = matches.where((m) {
