@@ -422,36 +422,36 @@ class _FootballMatchTabBarViewState extends State<FootballMatchTabBarView>
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                  e.key == 2
-                                                      ? "Today"
-                                                      : DateFormat('E')
-                                                          .format(e.value),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: selectedTab ==
-                                                              (e.key + 1)
-                                                          ? Constant.color2
-                                                          : Colors.white)),
-                                              AutoSizeText(
-                                                DateFormat('dd MMM')
-                                                    .format(e.value),
-                                                softWrap: true,
-                                                wrapWords: false,
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: selectedTab ==
-                                                            (e.key + 1)
-                                                        ? Constant.color2
-                                                        : Colors.white),
-                                                minFontSize: 3,
-                                                maxLines: 1,
-                                              ),
-                                            ],
+                                            // children: [
+                                            //   Text(
+                                            //       e.key == 2
+                                            //           ? "Today"
+                                            //           : DateFormat('E')
+                                            //               .format(e.value),
+                                            //       style: TextStyle(
+                                            //           fontWeight:
+                                            //               FontWeight.bold,
+                                            //           color: selectedTab ==
+                                            //                   (e.key + 1)
+                                            //               ? Constant.color2
+                                            //               : Colors.white)),
+                                            //   AutoSizeText(
+                                            //     DateFormat('dd MMM')
+                                            //         .format(e.value),
+                                            //     softWrap: true,
+                                            //     wrapWords: false,
+                                            //     textAlign: TextAlign.end,
+                                            //     style: TextStyle(
+                                            //         fontSize: 10,
+                                            //         fontWeight: FontWeight.bold,
+                                            //         color: selectedTab ==
+                                            //                 (e.key + 1)
+                                            //             ? Constant.color2
+                                            //             : Colors.white),
+                                            //     minFontSize: 3,
+                                            //     maxLines: 1,
+                                            //   ),
+                                            // ],
                                           ),
                                         ),
                                       ),

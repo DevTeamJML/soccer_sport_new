@@ -299,81 +299,191 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
   @override
   Future<FootballMatchModel?> checkFixtureOnLive(
       FootballMatchModel ongoingMatch) async {
-    String idParameter = ongoingMatch.league!.id.toString() +
-        '-' +
-        ongoingMatch.home.id.toString() +
-        '-' +
-        ongoingMatch.away.id.toString();
+    final String idParameter = '${ongoingMatch.league!.id}-'
+        '${ongoingMatch.home.id}-'
+        '${ongoingMatch.away.id}';
+
     final response = await http.get(
-        WebUri(FootballApi.fixtureApi + '?live=$idParameter'),
-        headers: FootballApi.footballHeaders);
+      WebUri('${FootballApi.fixtureApi}?live=$idParameter'),
+      headers: FootballApi.footballHeaders,
+    );
+
     if (response.statusCode == 200) {
-      // this mean that we are connected to the data base
-      var body = jsonDecode(response.body);
+      final body = jsonDecode(response.body);
+      final List<dynamic> list = body['response'] ?? [];
 
-      List<dynamic> list = body['response'];
-
-      if (list.length > 0) {
+      if (list.isNotEmpty) {
         return FootballMatchModel.fromJson(list[0]);
-      } else {
-        return null;
       }
-    } else {
-      throw ServerException();
+
+      return null;
     }
+
+    throw ServerException();
   }
 
   @override
   Future<List<FootballMatchModel>?> getIncomingLiveMatch() async {
-    DateTime date = DateTime.now();
-    String formattedDate = Constant.formattedDate(date);
+    final now = DateTime.now();
 
-    final response = await http.get(
-        WebUri(FootballApi.fixtureApi +
-            '?date=$formattedDate&timezone=Asia/Singapore'),
+    final previous30Days =
+        Constant.formattedDate(now.subtract(const Duration(days: 60)));
 
-        // WebUri(FootballApi.fixtureApi +
-        //     '?league=$id&season=$season&from=$formattedDate&to=$formattedNextTwoMonth&timezone=Asia/Singapore'),
-        headers: FootballApi.footballHeaders);
+    final next30Days = Constant.formattedDate(now.add(const Duration(days: 60)));
 
-    var body;
+    final int currentSeason = now.year;
 
-    if (response.statusCode == 200) {
-      // this mean that we are connected to the data base
-      body = jsonDecode(response.body);
+    const allowedLeagues = [
+      39, // Premier League
+      78, // Bundesliga
+      135, // Serie A
+      140, // La Liga
+      61, // Ligue 1
+      2, // UEFA Champions League
+      3, // UEFA Europa League
+      848, // UEFA Europa Conference League
+      5, // UEFA Nations League
+      1, // FIFA World Cup
+    ];
 
-      List<dynamic> matchesList = body['response'];
-      if (matchesList.length > 0) {
-        List<FootballMatchModel> matches = matchesList
-            .map((dynamic item) => FootballMatchModel.fromJson(item))
-            .toList();
+    final List<FootballMatchModel> allMatches = [];
 
-        // const allowedLeagues = [39, 135, 78, 140, 1];
-        const allowedLeagues = [
-          39, // Premier League
-          78, // Bundesliga
-          135, // Serie A
-          140, // La Liga
-          61, // Ligue 1
-          2, // UEFA Champions League
-          3, // UEFA Europa League
-          848, // UEFA Europa Conference League
-          5, // UEFA Nations League
-          1, //
-        ];
+    // print('========== INCOMING MATCH API ==========');
+    // print('From: $previous30Days');
+    // print('To: $next30Days');
+    // print('Season: $currentSeason');
 
-        matches = matches.where((m) {
-          return allowedLeagues.contains(m.league?.id);
-        }).toList();
+    for (final leagueId in allowedLeagues) {
+      try {
+        final url = WebUri(
+          '${FootballApi.fixtureApi}'
+          '?league=$leagueId'
+          '&season=$currentSeason'
+          '&from=$previous30Days'
+          '&to=$next30Days'
+          '&timezone=Asia/Singapore',
+        );
 
-        return matches;
-      } else {
-        return [];
+        // print('Fetching league: $leagueId');
+        // print('Request URL: $url');
+
+        final response = await http.get(
+          url,
+          headers: FootballApi.footballHeaders,
+        );
+
+        if (response.statusCode != 200) {
+          print(
+            'HTTP error for league $leagueId: '
+            '${response.statusCode}',
+          );
+          continue;
+        }
+
+        final body = jsonDecode(response.body);
+        final errors = body['errors'];
+
+        if (errors is Map && errors.isNotEmpty) {
+          print('API errors for league $leagueId: $errors');
+          continue;
+        }
+
+        final List<dynamic> matchesList = body['response'] ?? [];
+
+        // print(
+        //   'League $leagueId returned '
+        //   '${matchesList.length} fixtures',
+        // );
+
+        for (final item in matchesList) {
+          allMatches.add(FootballMatchModel.fromJson(item));
+        }
+      } catch (e) {
+        print('Error fetching league $leagueId: $e');
       }
-    } else {
-      throw ServerException();
     }
+
+    // Remove duplicate fixtures, if any.
+    final uniqueMatches = <int, FootballMatchModel>{};
+
+    for (final match in allMatches) {
+      uniqueMatches[match.fixture.id] = match;
+    }
+
+    final matches = uniqueMatches.values.toList()
+      ..sort(
+        (a, b) => DateTime.parse(a.fixture.date)
+            .compareTo(DateTime.parse(b.fixture.date)),
+      );
+
+    // print('========== ALL FOOTBALL MATCHES ==========');
+    // print('Total matches: ${matches.length}');
+
+    // for (final match in matches) {
+    //   print(
+    //     '${match.league?.name}: '
+    //     '${match.home.name} vs ${match.away.name} '
+    //     '| ${match.fixture.date} '
+    //     '| ${match.fixture.status.short}',
+    //   );
+    // }
+
+    // print('===========================================');
+
+    return matches;
   }
+
+  // @override
+  // Future<List<FootballMatchModel>?> getIncomingLiveMatch() async {
+  //   DateTime date = DateTime.now();
+  //   String formattedDate = Constant.formattedDate(date);
+
+  //   final response = await http.get(
+  //       WebUri(FootballApi.fixtureApi +
+  //           '?date=$formattedDate&timezone=Asia/Singapore'),
+
+  //       // WebUri(FootballApi.fixtureApi +
+  //       //     '?league=$id&season=$season&from=$formattedDate&to=$formattedNextTwoMonth&timezone=Asia/Singapore'),
+  //       headers: FootballApi.footballHeaders);
+
+  //   var body;
+
+  //   if (response.statusCode == 200) {
+  //     // this mean that we are connected to the data base
+  //     body = jsonDecode(response.body);
+
+  //     List<dynamic> matchesList = body['response'];
+  //     if (matchesList.length > 0) {
+  //       List<FootballMatchModel> matches = matchesList
+  //           .map((dynamic item) => FootballMatchModel.fromJson(item))
+  //           .toList();
+
+  //       // const allowedLeagues = [39, 135, 78, 140, 1];
+  //       const allowedLeagues = [
+  //         39, // Premier League
+  //         78, // Bundesliga
+  //         135, // Serie A
+  //         140, // La Liga
+  //         61, // Ligue 1
+  //         2, // UEFA Champions League
+  //         3, // UEFA Europa League
+  //         848, // UEFA Europa Conference League
+  //         5, // UEFA Nations League
+  //         1, //
+  //       ];
+
+  //       matches = matches.where((m) {
+  //         return allowedLeagues.contains(m.league?.id);
+  //       }).toList();
+
+  //       return matches;
+  //     } else {
+  //       return [];
+  //     }
+  //   } else {
+  //     throw ServerException();
+  //   }
+  // }
 
   @override
   Future<List<FootballMatchModel>> getFixtureBetweenDates(
@@ -682,26 +792,87 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
     }
   }
 
+  // @override
+  // Future<List<FootballMatchModel>> getFixturesByTeam(
+  //     String id, String season) async {
+  //   final response = await http.get(
+  //       WebUri(FootballApi.fixtureApi + '?season=$season&team=$id'),
+  //       headers: FootballApi.footballHeaders);
+
+  //   if (response.statusCode == 200) {
+  //     // this mean that we are connected to the data base
+  //     var body = jsonDecode(response.body);
+
+  //     List<dynamic> matchesList = body['response'];
+  //     List<FootballMatchModel> matches = matchesList
+  //         .map((dynamic item) => FootballMatchModel.fromJson(item))
+  //         .toList();
+
+  //     return matches;
+  //   } else {
+  //     throw ServerException();
+  //   }
+  // }
+
   @override
   Future<List<FootballMatchModel>> getFixturesByTeam(
       String id, String season) async {
-    final response = await http.get(
-        WebUri(FootballApi.fixtureApi + '?season=$season&team=$id'),
-        headers: FootballApi.footballHeaders);
+    final now = DateTime.now();
+    final from = _formatDate(now);
+    final to = _formatDate(now.add(const Duration(days: 30)));
 
-    if (response.statusCode == 200) {
-      // this mean that we are connected to the data base
-      var body = jsonDecode(response.body);
+    final url = WebUri(
+      '${FootballApi.fixtureApi}'
+      '?season=$season&team=$id&from=$from&to=$to',
+    );
 
-      List<dynamic> matchesList = body['response'];
-      List<FootballMatchModel> matches = matchesList
-          .map((dynamic item) => FootballMatchModel.fromJson(item))
-          .toList();
+    print('========== FIXTURES DEBUG ==========');
+    print('Team ID: $id');
+    print('Season: $season');
+    print('From: $from');
+    print('To: $to');
+    print('Request URL: $url');
 
-      return matches;
-    } else {
-      throw ServerException();
+    try {
+      final response = await http.get(
+        url,
+        headers: FootballApi.footballHeaders,
+      );
+
+      print('HTTP Status: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final body = jsonDecode(response.body);
+        final List<dynamic> matchesList = body['response'];
+
+        print('Fixtures returned: ${matchesList.length}');
+
+        final matches = matchesList
+            .map((item) => FootballMatchModel.fromJson(item))
+            .toList();
+
+        print('Fixtures parsed successfully: ${matches.length}');
+        print('====================================');
+
+        return matches;
+      } else {
+        print('API request failed!');
+        throw ServerException();
+      }
+    } catch (e, stackTrace) {
+      print('Error: $e');
+      print('Stack trace: $stackTrace');
+      rethrow;
     }
+  }
+
+  String _formatDate(DateTime date) {
+    final year = date.year.toString().padLeft(4, '0');
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+
+    return '$year-$month-$day';
   }
 
   @override

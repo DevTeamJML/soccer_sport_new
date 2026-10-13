@@ -441,154 +441,155 @@ class _FootballMatchPageState extends State<FootballMatchPage>
           preferredSize: const Size.fromHeight(30),
           child: Stack(
             alignment: Alignment.centerRight,
-            children: [
-              TabBar(
-                  controller: _tabController,
-                  isScrollable: true,
-                  tabs: tabList),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 0),
-              //   child: ElevatedButton(
-              //     onPressed: () {},
-              //     style: ElevatedButton.styleFrom(
-              //       primary: Constant.color1,
-              //       minimumSize: Size(40, 40),
-              //       shape: const CircleBorder(),
-              //       side: BorderSide(color: Colors.white, width: 0.5),
-              //     ),
-              //     child: Center(child: Icon(Icons.add)),
-              //   ),
-              // ),
-              Container(
-                  width: 70,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Constant.color1.withOpacity(0.2),
-                        Constant.color1
-                      ],
-                      stops: [0, 1],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                  ),
-                  // child: Row(
-                  //   children: [
-                  //     Container(
-                  //       width: 15,
-                  //       color: Colors.transparent,
-                  //     ),
-                  //     Container(
-                  //       child: Icon(Icons.add),
-                  //     )
-                  //   ],
-                  // ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Expanded(
-                          child:
+            // children: [
+            //   TabBar(
+            //       controller: _tabController,
+            //       isScrollable: true,
+            //       tabs: tabList),
+            //   // Padding(
+            //   //   padding: EdgeInsets.symmetric(horizontal: 0),
+            //   //   child: ElevatedButton(
+            //   //     onPressed: () {},
+            //   //     style: ElevatedButton.styleFrom(
+            //   //       primary: Constant.color1,
+            //   //       minimumSize: Size(40, 40),
+            //   //       shape: const CircleBorder(),
+            //   //       side: BorderSide(color: Colors.white, width: 0.5),
+            //   //     ),
+            //   //     child: Center(child: Icon(Icons.add)),
+            //   //   ),
+            //   // ),
+            //   Container(
+            //       width: 70,
+            //       decoration: BoxDecoration(
+            //         gradient: LinearGradient(
+            //           colors: [
+            //             Constant.color1.withOpacity(0.2),
+            //             Constant.color1
+            //           ],
+            //           stops: [0, 1],
+            //           begin: Alignment.centerLeft,
+            //           end: Alignment.centerRight,
+            //         ),
+            //       ),
+            //       // child: Row(
+            //       //   children: [
+            //       //     Container(
+            //       //       width: 15,
+            //       //       color: Colors.transparent,
+            //       //     ),
+            //       //     Container(
+            //       //       child: Icon(Icons.add),
+            //       //     )
+            //       //   ],
+            //       // ),
+            //       child: Row(
+            //         children: [
+            //           SizedBox(
+            //             width: 25,
+            //           ),
+            //           Expanded(
+            //               child:
 
-                              // ElevatedButton(
-                              //   onPressed: () {},
-                              //   style: ElevatedButton.styleFrom(
-                              //     primary: Constant.color1,
-                              //     minimumSize: Size(30, 30),
-                              //     shape: const CircleBorder(),
-                              //     side: BorderSide(color: Colors.white, width: 0.5),
-                              //   ),
-                              //   child: Center(
-                              //       child: Icon(
-                              //     Icons.add,
-                              //     size: 20,
-                              //   )),
-                              // ),
+            //                   // ElevatedButton(
+            //                   //   onPressed: () {},
+            //                   //   style: ElevatedButton.styleFrom(
+            //                   //     primary: Constant.color1,
+            //                   //     minimumSize: Size(30, 30),
+            //                   //     shape: const CircleBorder(),
+            //                   //     side: BorderSide(color: Colors.white, width: 0.5),
+            //                   //   ),
+            //                   //   child: Center(
+            //                   //       child: Icon(
+            //                   //     Icons.add,
+            //                   //     size: 20,
+            //                   //   )),
+            //                   // ),
 
-                              GestureDetector(
-                        onTap: () {
-                          if (Constant.auth != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PersonalizePage(
-                                        settingPage: true,
-                                      )),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
-                            );
-                          }
-                        },
-                        child: Container(
-                            height: 30,
-                            width: 30,
-                            // child:
-                            //     // FloatingActionButton(
-                            //     //   backgroundColor: Constant.color2,
-                            //     //   onPressed: () {},
-                            //     //   child: Center(
-                            //     //       child:
-                            //     // ),
-                            //     Container(
-                            //   color: Constant.color1,
-                            //   child: Icon(
-                            //     Icons.add,
-                            //     size: 30,
-                            //     color: Colors.white,
-                            //   ),
-                            // )),
-                      )),
-                    ],
-                  ))
-              // GestureDetector(
-              //   onTap: () {
-              //     showDialog(
-              //       context: context,
-              //       builder: (BuildContext context) {
-              //         return LeagueSelectionDialog(
-              //           leagues: leagueList,
-              //           selectedFunction: (int id) {
-              //             _tabController!.index = leagueList.indexWhere((curr) {
-              //               return curr.league.id == id;
-              //             });
-              //             Navigator.of(context).pop();
-              //           },
-              //         );
-              //       },
-              //     );
-              //   },
-              //   child:
+            //                   GestureDetector(
+            //                       onTap: () {
+            //                         if (Constant.auth != null) {
+            //                           Navigator.push(
+            //                             context,
+            //                             MaterialPageRoute(
+            //                                 builder: (context) =>
+            //                                     PersonalizePage(
+            //                                       settingPage: true,
+            //                                     )),
+            //                           );
+            //                         } else {
+            //                           Navigator.push(
+            //                             context,
+            //                             MaterialPageRoute(
+            //                                 builder: (context) => LoginPage()),
+            //                           );
+            //                         }
+            //                       },
+            //                       child: Container(
+            //                         height: 30,
+            //                         width: 30,
+            //                         // child:
+            //                         //     // FloatingActionButton(
+            //                         //     //   backgroundColor: Constant.color2,
+            //                         //     //   onPressed: () {},
+            //                         //     //   child: Center(
+            //                         //     //       child:
+            //                         //     // ),
+            //                         //     Container(
+            //                         //   color: Constant.color1,
+            //                         //   child: Icon(
+            //                         //     Icons.add,
+            //                         //     size: 30,
+            //                         //     color: Colors.white,
+            //                         //   ),
+            //                         // )),
+            //                       ))),
+            //         ],
+            //       ))
+            //   // GestureDetector(
+            //   //   onTap: () {
+            //   //     showDialog(
+            //   //       context: context,
+            //   //       builder: (BuildContext context) {
+            //   //         return LeagueSelectionDialog(
+            //   //           leagues: leagueList,
+            //   //           selectedFunction: (int id) {
+            //   //             _tabController!.index = leagueList.indexWhere((curr) {
+            //   //               return curr.league.id == id;
+            //   //             });
+            //   //             Navigator.of(context).pop();
+            //   //           },
+            //   //         );
+            //   //       },
+            //   //     );
+            //   //   },
+            //   //   child:
 
-              //       //  Showcase(
-              //       //   key: Constant.dropdownButtonKey,
-              //       //   description:
-              //       //       "In statistic page, users can select up to 100 different league to see statistic. So users can click here to search and choose the desired league instead of scrolling it.",
-              //       //   child:
+            //   //       //  Showcase(
+            //   //       //   key: Constant.dropdownButtonKey,
+            //   //       //   description:
+            //   //       //       "In statistic page, users can select up to 100 different league to see statistic. So users can click here to search and choose the desired league instead of scrolling it.",
+            //   //       //   child:
 
-              //       Container(
-              //     height: 30,
-              //     width: 40,
-              //     padding: EdgeInsets.only(right: 5),
-              //     decoration: BoxDecoration(
-              //       gradient: LinearGradient(colors: [
-              //         Constant.color1.withOpacity(0.2),
-              //         Constant.color1
-              //       ]),
-              //     ),
-              //     alignment: Alignment.centerRight,
-              //     child: Icon(
-              //       FontAwesomeIcons.search,
-              //       color: Colors.white,
-              //       size: 20,
-              //     ),
-              //   ),
-              // ),
-            ],
+            //   //       Container(
+            //   //     height: 30,
+            //   //     width: 40,
+            //   //     padding: EdgeInsets.only(right: 5),
+            //   //     decoration: BoxDecoration(
+            //   //       gradient: LinearGradient(colors: [
+            //   //         Constant.color1.withOpacity(0.2),
+            //   //         Constant.color1
+            //   //       ]),
+            //   //     ),
+            //   //     alignment: Alignment.centerRight,
+            //   //     child: Icon(
+            //   //       FontAwesomeIcons.search,
+            //   //       color: Colors.white,
+            //   //       size: 20,
+            //   //     ),
+            //   //   ),
+            //   // ),
+            // ],
           ),
         ),
       ),
