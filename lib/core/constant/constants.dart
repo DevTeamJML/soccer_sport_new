@@ -174,5 +174,134 @@ class Constant {
     /// e.g Thursday
   }
 
+  static const List<int> footballLeagues = [
+  39,  // Premier League
+  78,  // Bundesliga
+  135, // Serie A
+  140, // La Liga
+  61,  // Ligue 1
+  2,   // UEFA Champions League
+  3,   // UEFA Europa League
+  848, // UEFA Europa Conference League
+  5,   // UEFA Nations LeagueR
+  1,
+
+  // England
+  40, // Championship
+  45, // FA Cup
+  48, // League Cup
+
+  // Spain
+  141, // Segunda Division
+  143, // Copa del Rey
+
+  // Germany
+  79, // 2. Bundesliga
+  81, // DFB Pokal
+
+  // Italy
+  136, // Serie B
+  137, // Coppa Italia
+
+  // France
+  62, // Ligue 2
+  66, // Coupe de France
+
+  // Netherlands, Portugal, Belgium
+  88,  // Eredivisie
+  94,  // Primeira Liga
+  144, // Belgian Pro League
+
+  // Other European leagues
+  179, // Scottish Premiership
+  203, // Turkish Super Lig
+  197, // Greek Super League
+  218, // Austrian Bundesliga
+  207, // Swiss Super League
+  119, // Danish Superliga
+  103, // Norwegian Eliteserien
+  113, // Swedish Allsvenskan
+  106, // Polish Ekstraklasa
+  283, // Ukrainian Premier League
+  286, // Romanian Liga I
+
+  // South America
+  71,  // Brazilian Serie A
+  72,  // Brazilian Serie B
+  128, // Argentine Primera Division
+  239, // Colombian Primera A
+  265, // Chilean Primera Division
+  268, // Uruguayan Primera Division
+  242, // Ecuadorian LigaPro
+  281, // Peruvian Liga 1
+  13,  // Copa Libertadores
+  11,  // Copa Sudamericana
+
+  // North America
+  253, // MLS
+  262, // Liga MX
+  16,  // CONCACAF Champions Cup
+  22,  // CONCACAF Gold Cup
+
+  // Asia and Oceania
+  98,  // J1 League
+  292, // K League 1
+  188, // Australian A-League
+  169, // Chinese Super League
+  307, // Saudi Pro League
+  323, // Indian Super League
+
+  // Africa
+  12,  // CAF Champions League
+  20,  // CAF Confederation Cup
+  233, // Egyptian Premier League
+  289, // South African Premiership
+
+  // International competitions
+  4,  // UEFA European Championship
+  15, // FIFA Club World Cup
+
+  // Additional popular competitions
+  6,   // Africa Cup of Nations
+  7,   // AFC Asian Cup
+  9,   // Copa America
+  10,  // Friendlies
+  21,  // Confederations Cup
+  29,  // World Cup Qualification Africa
+  30,  // World Cup Qualification Asia
+  31,  // World Cup Qualification CONCACAF
+  32,  // World Cup Qualification Europe
+  33,  // World Cup Qualification Oceania
+  34,  // World Cup Qualification South America
+  41,  // League One
+  42,  // League Two
+  43,  // National League
+  73,  // Copa do Brasil
+  75,  // Brazilian Serie C
+  76,  // Brazilian Serie D
+  89,  // Eerste Divisie
+  90,  // KNVB Cup
+  95,  // Liga Portugal 2
+  99,  // J2 League
+  100, // J3 League
+  104, // Norwegian First Division
+  107, // Polish I Liga
+  114, // Swedish Superettan
+  120, // Danish First Division
+  129, // Argentine Primera Nacional
+  130, // Copa Argentina
+  145, // Belgian Challenger Pro League
+  170, // Chinese League One
+  180, // Scottish Championship
+  204, // Turkish First League
+  208, // Swiss Challenge League
+  219, // Austrian 2. Liga
+  255, // USL Championship
+  256, // USL League One
+  293, // K League 2
+  308, // Saudi First Division
+  324, // Indian I-League
+];
+
   static Function deepEq = const DeepCollectionEquality.unordered().equals;
 }

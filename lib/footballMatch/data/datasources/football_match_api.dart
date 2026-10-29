@@ -79,18 +79,20 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
 
       // const allowedLeagues = [39, 135, 78, 140, 1];
 
-      const allowedLeagues = [
-        39, // Premier League
-        78, // Bundesliga
-        135, // Serie A
-        140, // La Liga
-        61, // Ligue 1
-        2, // UEFA Champions League
-        3, // UEFA Europa League
-        848, // UEFA Europa Conference League
-        5, // UEFA Nations League
-        1, //
-      ];
+      // const allowedLeagues = [
+      //   39, // Premier League
+      //   78, // Bundesliga
+      //   135, // Serie A
+      //   140, // La Liga
+      //   61, // Ligue 1
+      //   2, // UEFA Champions League
+      //   3, // UEFA Europa League
+      //   848, // UEFA Europa Conference League
+      //   5, // UEFA Nations League
+      //   1, //
+      // ];
+
+      const allowedLeagues = Constant.footballLeagues;
 
       matches = matches.where((m) {
         return allowedLeagues.contains(m.league?.id);
@@ -208,19 +210,20 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
           .toList();
 
       // const allowedLeagues = [39, 135, 78, 140, 1];
-      const allowedLeagues = [
-        39, // Premier League
-        78, // Bundesliga
-        135, // Serie A
-        140, // La Liga
-        61, // Ligue 1
-        2, // UEFA Champions League
-        3, // UEFA Europa League
-        848, // UEFA Europa Conference League
-        5, // UEFA Nations League
-        1, //
-      ];
+      // const allowedLeagues = [
+      //   39, // Premier League
+      //   78, // Bundesliga
+      //   135, // Serie A
+      //   140, // La Liga
+      //   61, // Ligue 1
+      //   2, // UEFA Champions League
+      //   3, // UEFA Europa League
+      //   848, // UEFA Europa Conference League
+      //   5, // UEFA Nations League
+      //   1, //
+      // ];
 
+      const allowedLeagues = Constant.footballLeagues;
       matches = matches.where((m) {
         return allowedLeagues.contains(m.league?.id);
       }).toList();
@@ -327,25 +330,27 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
     final now = DateTime.now();
 
     final previous30Days =
-        Constant.formattedDate(now.subtract(const Duration(days: 60)));
+        Constant.formattedDate(now.subtract(const Duration(days: 30)));
 
-    final next30Days = Constant.formattedDate(now.add(const Duration(days: 60)));
+    final next30Days =
+        Constant.formattedDate(now.add(const Duration(days: 30)));
 
     final int currentSeason = now.year;
 
-    const allowedLeagues = [
-      39, // Premier League
-      78, // Bundesliga
-      135, // Serie A
-      140, // La Liga
-      61, // Ligue 1
-      2, // UEFA Champions League
-      3, // UEFA Europa League
-      848, // UEFA Europa Conference League
-      5, // UEFA Nations League
-      1, // FIFA World Cup
-    ];
+    // const allowedLeagues = [
+    //   39, // Premier League
+    //   78, // Bundesliga
+    //   135, // Serie A
+    //   140, // La Liga
+    //   61, // Ligue 1
+    //   2, // UEFA Champions League
+    //   3, // UEFA Europa League
+    //   848, // UEFA Europa Conference League
+    //   5, // UEFA Nations League
+    //   1, // FIFA World Cup
+    // ];
 
+    const allowedLeagues = Constant.footballLeagues;
     final List<FootballMatchModel> allMatches = [];
 
     // print('========== INCOMING MATCH API ==========');
@@ -533,18 +538,19 @@ class FootballMatchApiDataSourceImpl implements FootballMatchApiDataSource {
           .toList();
 
       // const allowedLeagues = [39, 135, 78, 140, 1];
-      const allowedLeagues = [
-        39, // Premier League
-        78, // Bundesliga
-        135, // Serie A
-        140, // La Liga
-        61, // Ligue 1
-        2, // UEFA Champions League
-        3, // UEFA Europa League
-        848, // UEFA Europa Conference League
-        5, // UEFA Nations League
-        1, //
-      ];
+      // const allowedLeagues = [
+      //   39, // Premier League
+      //   78, // Bundesliga
+      //   135, // Serie A
+      //   140, // La Liga
+      //   61, // Ligue 1
+      //   2, // UEFA Champions League
+      //   3, // UEFA Europa League
+      //   848, // UEFA Europa Conference League
+      //   5, // UEFA Nations League
+      //   1, //
+      // ];
+      const allowedLeagues = Constant.footballLeagues;
 
       matches = matches.where((m) {
         return allowedLeagues.contains(m.league?.id);

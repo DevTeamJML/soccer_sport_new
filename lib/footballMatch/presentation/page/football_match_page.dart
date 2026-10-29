@@ -56,18 +56,8 @@ class _FootballMatchPageState extends State<FootballMatchPage>
   // Laliga 140
   // Serie A 135
   // List<int> leaguesID = [39, 135, 78, 140, 1];
-  List<int> leaguesID = [
-    39, // Premier League
-    78, // Bundesliga
-    135, // Serie A
-    140, // La Liga
-    61, // Ligue 1
-    2, // UEFA Champions League
-    3, // UEFA Europa League
-    848, // UEFA Europa Conference League
-    5, // UEFA Nations League
-    1, // World Cup
-  ];
+
+  List<int> leaguesID = Constant.footballLeagues;
   List<int> betable = [
     39, // Premier League
     78, // Bundesliga
